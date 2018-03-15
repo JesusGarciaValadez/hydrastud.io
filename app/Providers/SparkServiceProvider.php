@@ -13,11 +13,11 @@ class SparkServiceProvider extends ServiceProvider
      * @var array
      */
     protected $details = [
-        'vendor' => 'Your Company',
+        'vendor' => 'HYDRA|studio',
         'product' => 'Your Product',
-        'street' => 'PO Box 111',
-        'location' => 'Your Town, NY 12345',
-        'phone' => '555-555-5555',
+        'street' => 'Av. Eugenia #288, colonia Vertiz Narvarte',
+        'location' => 'Delegación Benito Juárez, CDMX 03600',
+        'phone' => '+52 (55) 5214 3568',
     ];
 
     /**
@@ -25,7 +25,7 @@ class SparkServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $sendSupportEmailsTo = null;
+    protected $sendSupportEmailsTo = 'jesus.garciav@me.com';
 
     /**
      * All of the application developer e-mail addresses.
@@ -33,7 +33,7 @@ class SparkServiceProvider extends ServiceProvider
      * @var array
      */
     protected $developers = [
-        //
+      'jesus.garciav@me.com'
     ];
 
     /**
@@ -50,7 +50,7 @@ class SparkServiceProvider extends ServiceProvider
      */
     public function booted()
     {
-        Spark::useStripe()->noCardUpFront()->trialDays(10);
+        Spark::useStripe()->noCardUpFront()->trialDays(30);
 
         Spark::freePlan()
             ->features([
@@ -62,5 +62,9 @@ class SparkServiceProvider extends ServiceProvider
             ->features([
                 'First', 'Second', 'Third'
             ]);
+
+        Spark::collectBillingAddress();
+
+        Spark::useTwoFactorAuth();
     }
 }
